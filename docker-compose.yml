@@ -1,0 +1,22 @@
+services:
+  order-service:
+    build:
+      context: .
+      dockerfile: src/OrderService/OrderService.Api/Dockerfile
+    ports:
+      - "5001:8080"
+    environment:
+      - ConnectionStrings__OrderDb=Host=order-postgres;Database=orderdb;Username=postgres;Password=postgres
+    depends_on:
+      - order-postgres
+
+  order-postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: orderdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data   # bind mount — fica na pasta do projeto
+    ports:
+      - "5433:5432"
