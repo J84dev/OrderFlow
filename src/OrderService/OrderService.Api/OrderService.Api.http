@@ -1,6 +1,18 @@
-@OrderService.Api_HostAddress = http://localhost:5113
+@baseUrl = http://localhost:5001
 
-GET {{OrderService.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+### Criar pedido
+POST {{baseUrl}}/orders
+Content-Type: application/json
 
-###
+{
+  "customerId": "11111111-1111-1111-1111-111111111111",
+  "items": [
+    { "productId": "22222222-2222-2222-2222-222222222222", "quantity": 2, "unitPrice": 10.50 }
+  ]
+}
+
+### Consultar pedido (troque {id} pelo Id que a resposta acima devolver)
+GET {{baseUrl}}/orders/ba112a3b-0f5f-43db-a6b6-9bf7288c35a8
+
+### Health check
+GET {{baseUrl}}/health
